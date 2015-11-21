@@ -6,10 +6,10 @@ var app = express();
 
 app.use(bodyParser.json());
 
-// app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+// app.get('/', function(req, res) {
+//   res.send('hello world');
+// });
 
 module.exports = app;
