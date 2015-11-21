@@ -1,2 +1,2 @@
-# nutri-stack
+# nutristack
 Keep track of your supplements with NutriStack.
