@@ -16,7 +16,7 @@
     function getAll() {
       return $http({
         method: 'GET',
-        url: '/api/supplements'
+        url: '/api/supplements',
       });
     }
   }

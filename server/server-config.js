@@ -32,6 +32,8 @@ app.post('/api/supplements', function(req, res) {
   // should only insert into db if the supplement doesn't exist already
   db.Supplement.create({
     name: req.body.name,
+    dosage: req.body.dosage,
+    qty: req.body.qty,
   });
 
   // we should be saving the object to the database and sending a response of success
