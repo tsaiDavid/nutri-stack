@@ -14,13 +14,11 @@
         url: '/home',
         templateUrl: 'home/home.html',
         controller: 'HomeCtrl',
-        controllerAs: 'home',
       })
       .state('add', {
         url: '/add',
         templateUrl: 'add/add.html',
         controller: 'AddCtrl',
-        controllerAs: 'add',
       });
   }
 })();

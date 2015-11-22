@@ -9,8 +9,17 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '/../public')));
 
-// app.get('/', function(req, res) {
-//   res.send('hello world');
-// });
+/***** GET *****/
+
+/***** DELETE *****/
+
+/***** POST *****/
+app.post('/api/supplements', function(req, res) {
+  // expect to see the supplement object come through
+  console.log(req.body);
+
+  // we should be saving the object to the database and sending a response of success
+  res.end();
+});
 
 module.exports = app;

@@ -5,16 +5,14 @@
     <title>NutriStack</title>
   </head>
   <body ng-app="app">
-
+    
     <h1>NutriStack</h1>
+
     <!-- navigation -->
     <div class="nav">
       <span><a ui-sref="home">Home</a></span>
       <span><a ui-sref="add">Add</a></span>
     </div>
-
-    <!-- using below text to check if angular is required correctly -->
-    {{"Angular is installed"}}
 
     <!-- switched views being added here via ui-router -->
     <ng ui-view/>
@@ -28,9 +26,9 @@
   <!-- angular js start -->
   <script src="../app.module.js" charset="utf-8"></script>
   <script src="../app.routes.js" charset="utf-8"></script>
-  <script src="../add/add.controller.js" charset="utf-8"></script>
-  <script src="../add/add.factory.js" charset="utf-8"></script>
   <script src="../home/home.controller.js" charset="utf-8"></script>
   <script src="../home/home.factory.js" charset="utf-8"></script>
+  <script src="../add/add.controller.js" charset="utf-8"></script>
+  <script src="../add/add.factory.js" charset="utf-8"></script>
   <!-- angular js end -->
 </html>
