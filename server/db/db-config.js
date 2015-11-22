@@ -14,4 +14,6 @@ var db = new Sequelize('nutristack', 'admin', 'admin', {
   // logging: false,
 });
 
+db.sync({force: true});
+
 module.exports = db;
