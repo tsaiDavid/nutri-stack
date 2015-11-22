@@ -26,10 +26,11 @@ var User = db.define('User', {
   lastname: Sequelize.STRING,
 });
 
+// TODO: Incomplete join relation
 // Supplement.belongsToMany(User);
 // User.belongsToMany(Supplement);
 
-db.sync({force: true});
+db.sync();
 
 exports.User = User;
 exports.Supplement = Supplement;
