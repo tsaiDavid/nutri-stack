@@ -1,4 +1,5 @@
 var express = require('express');
+var db = require('./db');
 var path = require('path');
 var bodyParser = require('body-parser');
 
