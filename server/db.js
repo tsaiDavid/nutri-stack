@@ -11,7 +11,7 @@ var db = new Sequelize('nutristack', 'admin', 'admin', {
   dialect: 'postgres',
 
   // Set below property if you want to enable logging
-  logging: false,
+  // logging: false,
 });
 
 module.exports = db;
