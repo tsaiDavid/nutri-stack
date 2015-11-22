@@ -4,9 +4,9 @@
   angular.module('app')
   .controller('AddCtrl', AddCtrl);
 
-  AddCtrl.$inject = ['$http'];
+  AddCtrl.$inject = ['addFactory'];
 
-  function AddCtrl($http) {
+  function AddCtrl(addFactory) {
     var self = this;
 
     // object for storing the input data
@@ -15,15 +15,10 @@
     self.submit = function() {
       console.log('Submitting data: ', self.supp);
 
-      // function should take data from the form in the add view
-      // post it using $http to the server's back end
-      return $http({
-        method: 'POST',
-        url: '/api/supplements',
-        data: self.supp,
-      });
-
-      // have the server take care of the routing and saving into the db
+      addFactory.insertToDB(self.supp)
+        .then(function() {
+          // after inserting to the DB
+        });
     };
 
   }
