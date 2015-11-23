@@ -15,22 +15,35 @@ var db = new Sequelize('nutristack', 'admin', 'admin', {
   // logging: false,
 });
 
+var User = db.define('User', {
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+});
+
+var Stack = db.define('Stack', {
+  title: Sequelize.STRING,
+});
+
 var Supplement = db.define('Supplement', {
   name: Sequelize.STRING,
   qty: Sequelize.INTEGER,
   dosage: Sequelize.INTEGER,
 });
 
-var User = db.define('User', {
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
-});
+// TODO: Add other necessary relations, must have a one-to-many & many-to-many
 
-// TODO: Incomplete join relation
-// Supplement.belongsToMany(User);
-// User.belongsToMany(Supplement);
+// 1:M relationship
+User.hasMany(Stack, {as: 'CustomStacks'});
 
-db.sync();
+// M:M relationship
+Supplement.belongsToMany(Stack, {through: 'StackSupplement'});
+Stack.belongsToMany(Supplement, {through: 'StackSupplement'});
+
+db.sync({force: true});
 
 exports.User = User;
 exports.Supplement = Supplement;
