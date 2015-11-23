@@ -9,6 +9,7 @@
   function uniqueStackFactory($http, $window, $location, $stateParams) {
     var services = {
       getTitle: getTitle,
+      getStackDetails: getStackDetails,
       addSupplement: addSupplement,
     };
 
@@ -19,10 +20,17 @@
       return $stateParams.title;
     }
 
+    // retrieve stack details from db through our API endpoint
     function getStackDetails() {
       return $http({
         method: 'GET',
-        url: 'api/stacks/',
+        url: 'api/stack/' + $stateParams.title,
+      })
+      .then(function(stack) {
+        console.log(stack.data);
+
+        // return only the response's data property/object
+        return stack.data;
       });
     }
 

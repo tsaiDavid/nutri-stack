@@ -41,13 +41,14 @@ app.get('/api/stacks/:user', function(req, res) {
 });
 
 // Client will receive stack details, pulled from db
-app.get('/api/stacks/:title', function(req, res) {
+app.get('/api/stack/:title', function(req, res) {
 
   return db.Stack.findOne({
     where: {title: req.params.title},
   })
-  .then(function(title) {
-    res.json(title);
+  .then(function(stack) {
+    // after receiving the stack, you'll want to send to client
+    res.json(stack.dataValues);
   });
 
 });
@@ -79,7 +80,7 @@ app.post('/api/stacks', function(req, res) {
 });
 
 // Modify the stack's attributes (add supplements)
-app.post('/api/stacks/:title', function(req, res) {
+app.post('/api/stack/:title', function(req, res) {
   // Reach into db to add supplements
 });
 

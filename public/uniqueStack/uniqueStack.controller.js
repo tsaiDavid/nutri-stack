@@ -9,9 +9,14 @@
   function UniqueStackCtrl(uniqueStackFactory) {
     var self = this;
     self.title;
+    self.stack;
 
     self.initialize = function() {
       self.getStackTitle();
+      uniqueStackFactory.getStackDetails()
+      .then(function(stack) {
+        self.stack = stack;
+      });
     };
 
     self.getStackTitle = function() {
