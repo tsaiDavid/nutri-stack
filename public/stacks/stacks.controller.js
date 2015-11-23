@@ -9,10 +9,13 @@
   function StackCtrl(stackFactory) {
     var self = this;
     self.input = {};
+    self.stacks;
 
     self.submit = function() {
-      console.log('Logging from StackCtrl, submit: ', self.input.username);
-      stackFactory.getUserStack(self.input.username);
+      stackFactory.getUserStack(self.input.username)
+      .then(function(array) {
+        self.stacks = array;
+      });
     };
   }
 

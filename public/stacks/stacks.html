@@ -1,21 +1,27 @@
 <div id="stacks" ng-controller="StackCtrl as vm">
   <div class="row">
+
       <div class="col s12">
         <div class="card-panel">
-          <span class="black-text">
-            <h5>Your Stack</h5>
-
-            <!-- form to add the supplement details -->
-            <form ng-submit="vm.submit()">
-              <div class="form-stacks">
-                <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
-              </div>
-              <br>
-              <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Get Stacks</button>
-            </form>
-
-          </span>
+          <h5>Your Stack</h5>
+          <!-- form to add the supplement details -->
+          <form ng-submit="vm.submit()">
+            <div class="form-stacks">
+              <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
+            </div>
+            <br>
+            <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Get Stacks</button>
+          </form>
         </div>
       </div>
+
+      <div class="col s12">
+        <div class="card-panel">
+          <div class="collection">
+            <a ui-sref="stacks/{{n}}" class="collection-item" ng-repeat="n in vm.stacks.data track by $index">{{n}}</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 </div>

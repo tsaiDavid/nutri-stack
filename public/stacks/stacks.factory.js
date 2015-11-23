@@ -19,7 +19,7 @@
         url: 'api/stack/' + username,
       })
       .then(function(res) {
-        console.log('Response from inside getUserStack: ', res);
+        return res;
       });
     }
   }
