@@ -16,7 +16,7 @@
     function getUserStack(username) {
       return $http({
         method: 'GET',
-        url: 'api/stack/' + username,
+        url: 'api/stacks/' + username,
       })
       .then(function(res) {
         return res;

@@ -19,6 +19,13 @@
       return $stateParams.title;
     }
 
+    function getStackDetails() {
+      return $http({
+        method: 'GET',
+        url: 'api/stacks/',
+      });
+    }
+
     function addSupplement() {
 
     }

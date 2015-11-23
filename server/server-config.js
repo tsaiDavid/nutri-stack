@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '/../public')));
 /***** GET *****/
 
 // Client will receive an array of stack titles
-app.get('/api/stack/:user', function(req, res) {
+app.get('/api/stacks/:user', function(req, res) {
 
   return db.User
     .findOne({
@@ -40,10 +40,23 @@ app.get('/api/stack/:user', function(req, res) {
 
 });
 
+// Client will receive stack details, pulled from db
+app.get('/api/stacks/:title', function(req, res) {
+
+  return db.Stack.findOne({
+    where: {title: req.params.title},
+  })
+  .then(function(title) {
+    res.json(title);
+  });
+
+});
+
 /***** DELETE *****/
 
 /***** POST *****/
-app.post('/api/stack', function(req, res) {
+
+app.post('/api/stacks', function(req, res) {
   return db.User
 
     // prevents duplicate user creation
@@ -63,6 +76,11 @@ app.post('/api/stack', function(req, res) {
     });
 
   res.end();
+});
+
+// Modify the stack's attributes (add supplements)
+app.post('/api/stacks/:title', function(req, res) {
+  // Reach into db to add supplements
 });
 
 module.exports = app;

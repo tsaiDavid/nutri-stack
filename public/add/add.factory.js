@@ -18,7 +18,7 @@
       // the server handles saving to db
       return $http({
         method: 'POST',
-        url: '/api/stack',
+        url: '/api/stacks',
         data: data,
       });
     }
