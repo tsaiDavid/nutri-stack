@@ -21,8 +21,11 @@
       });
     };
 
-    self.goToStack = function(x) {
-      console.log(x);
+    // Move user into the unique stack view based on selected title
+    self.goToStack = function(stackTitle) {
+      $state.go('uniqueStack', {
+        title: stackTitle,
+      });
     };
   }
 

@@ -29,8 +29,9 @@
         templateUrl: 'stacks/stacks.stackslist.html',
         controller: 'StackCtrl',
       })
-      .state('stacks/:title', {
-        templateUrl: 'stacks/stacks.single.html',
+      .state('uniqueStack', {
+        url: '/stacks/:title',
+        templateUrl: 'uniqueStack/uniqueStack.html',
         controller: 'StackCtrl',
       });
 
