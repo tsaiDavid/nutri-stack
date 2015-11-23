@@ -1,4 +1,5 @@
 <div id="stacks" ng-controller="UniqueStackCtrl as vm">
+
   <div class="row">
     <div class="col s12">
       <div class="card-panel">
@@ -7,9 +8,48 @@
         <br>
         <h6>Created By:</h6>
         <h4>{{vm.createdBy}}</h4>
-
+        <br>
         {{vm.stack}}
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <p>Add supplements to the <strong>{{vm.title}}</strong> stack:</p>
+        <div class="row">
+
+          <form class="col s12" ng-submit="vm.submit()">
+            <div class="row">
+              <!-- supplement name input field -->
+              <div class="input-field col s12">
+                <input id="supp_name" type="text" class="validate">
+                <label for="supp_name">Supplement Name</label>
+              </div>
+
+              <!-- supplement dosage input field -->
+              <div class="input-field col s12">
+                <input id="supp_dosage" type="number" class="validate">
+                <label for="supp_dosage">Dosage/Amount</label>
+              </div>
+
+              <!-- supplement qty input field -->
+              <div class="input-field col s12">
+                <input id="supp_qty" type="number" class="validate">
+                <label for="supp_qty">Quantity</label>
+              </div>
+            </div>
+            <br>
+            <!-- submit button -->
+            <div class="row">
+              <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Add Supplement</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
