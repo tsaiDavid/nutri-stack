@@ -20,6 +20,10 @@
         $state.go('stacks.list');
       });
     };
+
+    self.goToStack = function(x) {
+      console.log(x);
+    };
   }
 
 })();

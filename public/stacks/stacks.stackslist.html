@@ -2,7 +2,11 @@
   <div class="card-panel">
     <h5>We've Found Your Stacks</h5>
     <div class="collection">
-      <a ui-sref="stacks/{{n}}" class="collection-item" ng-repeat="n in vm.stacks.data track by $index">{{n}}</a>
+      <!-- within this collection card repeat for each item retrieved from pg db -->
+      <a class="collection-item" ng-repeat="n in vm.stacks.data track by $index">
+        <!-- click on item to pass string of stack title into function -->
+        <div ng-click="vm.goToStack(n)"> {{n}} </div>
+      </a>
     </div>
   </div>
 </div>

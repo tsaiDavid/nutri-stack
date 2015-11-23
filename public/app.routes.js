@@ -28,6 +28,10 @@
       .state('stacks.list', {
         templateUrl: 'stacks/stacks.stackslist.html',
         controller: 'StackCtrl',
+      })
+      .state('stacks/:title', {
+        templateUrl: 'stacks/stacks.single.html',
+        controller: 'StackCtrl',
       });
 
     // TODO: Add a unique/params based routing for each stack that user pulls up
