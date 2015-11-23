@@ -10,6 +10,7 @@
     var services = {
       getTitle: getTitle,
       getStackDetails: getStackDetails,
+      getSupplements: getSupplements,
       addSupplement: addSupplement,
     };
 
@@ -34,8 +35,16 @@
       });
     }
 
-    function addSupplement() {
+    function getSupplements() {
 
+    }
+
+    // insert supplement into the pg database
+    function addSupplement() {
+      return $http({
+        method: 'POST',
+        url: 'api/stack/',
+      });
     }
   }
 

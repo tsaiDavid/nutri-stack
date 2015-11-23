@@ -16,7 +16,7 @@
     self.submit = function() {
       addFactory.insertToDB(self.input)
         .then(function() {
-          // after inserting to the DB
+          // TODO: after inserting stack, take user to the stack page
         });
     };
 
