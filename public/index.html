@@ -3,17 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>NutriStack</title>
+    <!-- <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8"> -->
+    <link rel="stylesheet" href="../lib/Materialize/dist/css/materialize.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../lib/Materialize/dist/js/materialize.js" media="screen" title="no title" charset="utf-8">
   </head>
   <body ng-app="app">
 
-    <h1>NutriStack</h1>
-
     <!-- navigation -->
-    <div class="nav">
-      <span><a ui-sref="home">Home</a></span>
-      <span><a ui-sref="add">Add Stack</a></span>
-      <span><a ui-sref="stacks">Your Stacks</a></span>
-    </div>
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        <a href="#" class="brand-logo center">NutriStack</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a ui-sref="home">Home</a></li>
+          <li><a ui-sref="add">Add Stack</a></li>
+          <li><a ui-sref="stacks">Your Stacks</a></li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- switched views being added here via ui-router -->
     <ng ui-view/>
@@ -22,6 +28,8 @@
   <!-- bower deps start -->
   <script src="../lib/angular/angular.js" charset="utf-8"></script>
   <script src="../lib/angular-ui-router/release/angular-ui-router.js" charset="utf-8"></script>
+  <script src="../lib/jquery/dist/jquery.js" charset="utf-8"></script>
+  <script src="../lib/Materialize/dist/js/materialize.js" charset="utf-8"></script>
   <!-- bower deps end -->
 
   <!-- angular js start -->
