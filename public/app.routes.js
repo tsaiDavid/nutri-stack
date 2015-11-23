@@ -19,6 +19,11 @@
         url: '/add',
         templateUrl: 'add/add.html',
         controller: 'AddCtrl',
+      })
+      .state('stacks', {
+        url: '/stacks',
+        templateUrl: 'stacks/stacks.html',
+        controller: 'StackCtrl',
       });
   }
 })();

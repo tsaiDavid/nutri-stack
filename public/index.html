@@ -5,13 +5,14 @@
     <title>NutriStack</title>
   </head>
   <body ng-app="app">
-    
+
     <h1>NutriStack</h1>
 
     <!-- navigation -->
     <div class="nav">
       <span><a ui-sref="home">Home</a></span>
-      <span><a ui-sref="add">Add</a></span>
+      <span><a ui-sref="add">Add Stack</a></span>
+      <span><a ui-sref="stacks">Your Stacks</a></span>
     </div>
 
     <!-- switched views being added here via ui-router -->
@@ -30,5 +31,7 @@
   <script src="../home/home.factory.js" charset="utf-8"></script>
   <script src="../add/add.controller.js" charset="utf-8"></script>
   <script src="../add/add.factory.js" charset="utf-8"></script>
+  <script src="../stacks/stacks.controller.js" charset="utf-8"></script>
+  <script src="../stacks/stacks.factory.js" charset="utf-8"></script>
   <!-- angular js end -->
 </html>
