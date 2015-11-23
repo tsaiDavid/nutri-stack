@@ -18,7 +18,6 @@ var db = new Sequelize('nutristack', 'admin', 'admin', {
 var User = db.define('User', {
   username: {
     type: Sequelize.STRING,
-    unique: true,
   },
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
@@ -37,7 +36,7 @@ var Supplement = db.define('Supplement', {
 // TODO: Add other necessary relations, must have a one-to-many & many-to-many
 
 // 1:M relationship
-User.hasMany(Stack, {as: 'CustomStacks'});
+Stack.belongsTo(User);
 
 // M:M relationship
 Supplement.belongsToMany(Stack, {through: 'StackSupplement'});
@@ -46,4 +45,5 @@ Stack.belongsToMany(Supplement, {through: 'StackSupplement'});
 db.sync({force: true});
 
 exports.User = User;
+exports.Stack = Stack;
 exports.Supplement = Supplement;

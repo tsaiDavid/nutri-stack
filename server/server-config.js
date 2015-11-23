@@ -27,16 +27,25 @@ app.get('/api/supplements', function(req, res) {
 /***** DELETE *****/
 
 /***** POST *****/
-app.post('/api/supplements', function(req, res) {
-  // console.log('Request body from POST to /api/supplements: ', req.body);
-  // should only insert into db if the supplement doesn't exist already
-  db.Supplement.create({
-    name: req.body.name,
-    dosage: req.body.dosage,
-    qty: req.body.qty,
-  });
+app.post('/api/stack', function(req, res) {
+  return db.User
 
-  // we should be saving the object to the database and sending a response of success
+    // prevents duplicate user creation
+    .findOrCreate({
+      where: {username: req.body.username},
+    })
+
+    // use 'spread' in place of 'then' for promise-based compatability
+    .spread(function(user) {
+      return db.Stack.create({
+        title: req.body.stacktitle,
+        UserId: user.get('id'),
+      });
+    })
+    .catch(function(err) {
+      console.err(err);
+    });
+
   res.end();
 });
 

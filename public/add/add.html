@@ -7,13 +7,12 @@
   <!-- form to add the supplement details -->
   <form ng-submit="vm.submit()">
     <div class="form-user">
-      <input type="text" ng-model="vm.supp.name" placeholder="Username"><br>
-      <!-- <input type="text" ng-model="vm.supp.name" placeholder="First Name"><br> -->
-      <!-- <input type="text" ng-model="vm.supp.name" placeholder="Last Name"> -->
+      <!-- for MVP purposes, no form validation or sigin/signup page -->
+      <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
     </div>
     <br>
     <div class="form-stack">
-      <input type="text" ng-model="vm.stack.name" placeholder="Stack Name">
+      <input type="text" ng-model="vm.input.stacktitle" placeholder="Stack Title">
     </div>
     <br>
     <input type="submit" value="Create Stack"/>
