@@ -1,0 +1,8 @@
+<div class="col s12">
+  <div class="card-panel">
+    <h5>We've Found Your Stacks</h5>
+    <div class="collection">
+      <a ui-sref="stacks/{{n}}" class="collection-item" ng-repeat="n in vm.stacks.data track by $index">{{n}}</a>
+    </div>
+  </div>
+</div>

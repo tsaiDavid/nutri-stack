@@ -3,7 +3,7 @@
 
       <div class="col s12">
         <div class="card-panel">
-          <h5>Your Stack</h5>
+          <h5>Search Stacks by User</h5>
           <!-- form to add the supplement details -->
           <form ng-submit="vm.submit()">
             <div class="form-stacks">
@@ -15,13 +15,7 @@
         </div>
       </div>
 
-      <div class="col s12">
-        <div class="card-panel">
-          <div class="collection">
-            <a ui-sref="stacks/{{n}}" class="collection-item" ng-repeat="n in vm.stacks.data track by $index">{{n}}</a>
-          </div>
-        </div>
-      </div>
+      <div ui-view></div>
 
     </div>
 </div>
