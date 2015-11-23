@@ -4,11 +4,16 @@
   angular.module('app')
   .controller('StackCtrl', StackCtrl);
 
-  StackCtrl.$inject = [];
+  StackCtrl.$inject = ['stackFactory'];
 
-  function StackCtrl() {
+  function StackCtrl(stackFactory) {
     var self = this;
+    self.input = {};
 
+    self.submit = function() {
+      console.log('Logging from StackCtrl, submit: ', self.input.username);
+      stackFactory.getUserStack(self.input.username);
+    };
   }
 
 })();

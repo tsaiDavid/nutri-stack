@@ -13,8 +13,14 @@
 
     return services;
 
-    function getUserStack() {
-
+    function getUserStack(username) {
+      return $http({
+        method: 'GET',
+        url: 'api/stack/' + username,
+      })
+      .then(function(res) {
+        console.log('Response from inside getUserStack: ', res);
+      });
     }
   }
 

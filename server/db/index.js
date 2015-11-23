@@ -42,7 +42,9 @@ Stack.belongsTo(User);
 Supplement.belongsToMany(Stack, {through: 'StackSupplement'});
 Stack.belongsToMany(Supplement, {through: 'StackSupplement'});
 
-db.sync({force: true});
+// Uncomment following line when you want to wipe DB
+// db.sync({force: true});
+db.sync();
 
 exports.User = User;
 exports.Stack = Stack;

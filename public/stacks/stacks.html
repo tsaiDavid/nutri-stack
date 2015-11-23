@@ -1,3 +1,13 @@
-<div id="stacks">
+<div id="stacks" ng-controller="StackCtrl as vm">
   <h3>Your Stacks</h3>
+
+  <!-- form to add the supplement details -->
+  <form ng-submit="vm.submit()">
+    <div class="form-stacks">
+      <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
+    </div>
+    <br>
+    <input type="submit" value="Get Stacks"/>
+  </form>
+
 </div>
