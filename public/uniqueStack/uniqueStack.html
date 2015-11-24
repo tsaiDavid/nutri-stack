@@ -5,11 +5,20 @@
       <div class="card-panel">
         <h6>Viewing Stack:</h6>
         <h4>{{vm.title}}</h4>
-        <br>
-        <h6>Created By:</h6>
-        <h4>{{vm.createdBy}}</h4>
-        <br>
-        {{vm.stack}}
+          <br>
+        <!-- <h6>Created By:</h6> -->
+        <!-- TODO: find efficient way to pull stack's creator's username -->
+        <!-- <h4>{{vm.createdBy}}</h4> -->
+          <!-- <br> -->
+        <h6>Supplements In This Stack:</h6>
+          <br>
+        <div class="collection">
+          <!-- within this collection card repeat for each item retrieved from pg db -->
+          <ul class="collection-item" ng-repeat="n in vm.supplements track by $index">
+            <!-- n represents the object within the array of supplements returned by server -->
+            <li> Supplement Name: <strong>{{n.name}}</strong> | Quantity: <strong>{{n.qty}}</strong> | Dosage: <strong>{{n.dosage}}</strong> </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -24,23 +33,24 @@
             <div class="row">
               <!-- supplement name input field -->
               <div class="input-field col s12">
-                <input id="supp_name" type="text" class="validate">
+                <input id="supp_name" type="text" class="validate" ng-model="vm.supplement.name">
                 <label for="supp_name">Supplement Name</label>
               </div>
 
               <!-- supplement dosage input field -->
               <div class="input-field col s12">
-                <input id="supp_dosage" type="number" class="validate">
+                <input id="supp_dosage" type="number" class="validate" ng-model="vm.supplement.dosage">
                 <label for="supp_dosage">Dosage/Amount</label>
               </div>
 
               <!-- supplement qty input field -->
               <div class="input-field col s12">
-                <input id="supp_qty" type="number" class="validate">
+                <input id="supp_qty" type="number" class="validate" ng-model="vm.supplement.qty">
                 <label for="supp_qty">Quantity</label>
               </div>
             </div>
             <br>
+
             <!-- submit button -->
             <div class="row">
               <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Add Supplement</button>

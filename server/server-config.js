@@ -53,6 +53,24 @@ app.get('/api/stack/:title', function(req, res) {
 
 });
 
+// Send client supplements contained in the particular stack (title)
+app.get('/api/supplements/:title', function(req, res) {
+
+  return db.Stack.findOne({
+    where: {title: req.params.title},
+  })
+  .then(function(stack) {
+    return stack.getSupplements();
+  })
+  .then(function(supps) {
+    res.send(supps);
+  })
+  .then(function(array) {
+    res.json(array);
+  });
+
+});
+
 /***** DELETE *****/
 
 /***** POST *****/

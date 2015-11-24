@@ -35,15 +35,22 @@
       });
     }
 
-    function getSupplements() {
-
+    function getSupplements(stackTitle) {
+      return $http({
+        method: 'GET',
+        url: 'api/supplements/' + stackTitle,
+      })
+      .then(function(supps) {
+        return supps;
+      });
     }
 
     // insert supplement into the pg database
-    function addSupplement() {
+    function addSupplement(supplement, stackTitle) {
       return $http({
         method: 'POST',
-        url: 'api/stack/',
+        url: 'api/stack/' + stackTitle,
+        data: supplement,
       });
     }
   }
