@@ -81,7 +81,31 @@ app.post('/api/stacks', function(req, res) {
 
 // Modify the stack's attributes (add supplements)
 app.post('/api/stack/:title', function(req, res) {
-  // Reach into db to add supplements
+  return db.Stack
+    .findOrCreate({
+      where: {title: req.params.title},
+    })
+    .spread(function(stack) {
+      return db.Supplement
+        .create({
+          name: req.body.name,
+          qty: req.body.qty,
+          dosage: req.body.dosage,
+        })
+
+        // TODO: Evaluate possible refactor
+        .then(function(supplement) {
+          supplement.addStacks([stack.get('id')]);
+
+          // send 201 - successful creation
+          res.status(201).json();
+        });
+    })
+    .catch(function(err) {
+      console.err(err);
+    });
+
+  res.end();
 });
 
 module.exports = app;
