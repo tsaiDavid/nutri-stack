@@ -20,10 +20,13 @@ app.get('/api/stacks/:user', function(req, res) {
       where: {username: req.params.user},
     })
     .then(function(user) {
-      var userToFind = user.get('id');
-      return db.Stack.findAll({
-        where: {UserId: userToFind},
-      });
+      if (!user) {
+        return res.sendStatus(400).end();
+      } else {
+        return db.Stack.findAll({
+          where: {UserId: user.get('id')},
+        });
+      }
     })
     .then(function(stacks) {
       // Using Sequelize's built in promise (bluebird)
@@ -43,31 +46,37 @@ app.get('/api/stacks/:user', function(req, res) {
 // Client will receive stack details, pulled from db
 app.get('/api/stack/:title', function(req, res) {
 
-  return db.Stack.findOne({
-    where: {title: req.params.title},
-  })
-  .then(function(stack) {
-    // after receiving the stack, you'll want to send to client
-    res.json(stack.dataValues);
-  });
+  return db.Stack
+    .findOne({
+      where: {title: req.params.title},
+    })
+    .then(function(stack) {
+      if (!stack) {
+        res.sendStatus(400).end();
+      } else {
+        // after receiving the stack, you'll want to send to client
+        res.json(stack.dataValues);
+      }
+    });
 
 });
 
 // Send client supplements contained in the particular stack (title)
 app.get('/api/supplements/:title', function(req, res) {
 
-  return db.Stack.findOne({
-    where: {title: req.params.title},
-  })
-  .then(function(stack) {
-    return stack.getSupplements();
-  })
-  .then(function(supps) {
-    res.send(supps);
-  })
-  .then(function(array) {
-    res.json(array);
-  });
+  return db.Stack
+    .findOne({
+      where: {title: req.params.title},
+    })
+    .then(function(stack) {
+      return stack.getSupplements();
+    })
+    .then(function(supps) {
+      res.send(supps);
+    })
+    .then(function(array) {
+      res.json(array);
+    });
 
 });
 
@@ -94,7 +103,8 @@ app.post('/api/stacks', function(req, res) {
       console.err(err);
     });
 
-  res.end();
+  // send 201 - successful creation
+  res.status(201).json();
 });
 
 // Modify the stack's attributes (add supplements)

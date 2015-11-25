@@ -34,7 +34,5 @@
         templateUrl: 'uniqueStack/uniqueStack.html',
         controller: 'StackCtrl',
       });
-
-    // TODO: Add a unique/params based routing for each stack that user pulls up
   }
 })();
