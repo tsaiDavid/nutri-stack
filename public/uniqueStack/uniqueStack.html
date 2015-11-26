@@ -16,7 +16,14 @@
           <!-- within this collection card repeat for each item retrieved from pg db -->
           <ul class="collection-item" ng-repeat="n in vm.supplements track by $index">
             <!-- n represents the object within the array of supplements returned by server -->
-            <li> Supplement Name: <strong>{{n.name}}</strong> | Quantity: <strong>{{n.qty}}</strong> | Dosage: <strong>{{n.dosage}}</strong> </li>
+            <li>
+              <div class="supp-stack">
+                <span id="supp-name">Supplement Name: <strong>{{n.name}}</strong></span>
+                <span id="supp-dosage">Dosage: <strong>{{n.dosage}}</strong></span>
+                <span id="supp-qty">Quantity: <strong>{{n.qty}}</strong></span>
+                <span id="supp-delete"><i class="fa fa-times"></i></span>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

@@ -81,6 +81,22 @@ app.get('/api/supplements/:title', function(req, res) {
 });
 
 /***** DELETE *****/
+app.delete('/api/stack/:title', function(req, res) {
+  return db.Stack
+    .findOne({
+      where: {title: req.params.title},
+    })
+    .then(function(stack) {
+      stack.destroy();
+
+      // TODO: Send correct status code here
+      res.end;
+    })
+    .catch(function(err) {
+      console.err(err);
+    });
+
+});
 
 /***** POST *****/
 

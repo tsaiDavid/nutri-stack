@@ -7,3 +7,25 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+.supp-stack #supp-name {
+  margin-right: 20px;
+}
+
+.supp-stack #supp-dosage {
+  margin-right: 20px;
+}
+
+.supp-stack #supp-qty {
+  margin-right: 20px;
+}
+
+.supp-stack #supp-delete {
+  float: right;
+  color: #e57373;
+}
+
+.supp-stack #supp-delete:hover {
+  color: #e53935;
+  cursor: pointer;
+}

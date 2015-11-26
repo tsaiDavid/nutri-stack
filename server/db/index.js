@@ -39,8 +39,8 @@ var Supplement = db.define('Supplement', {
 Stack.belongsTo(User);
 
 // M:M relationship
-Supplement.belongsToMany(Stack, {through: 'StackSupplement'});
-Stack.belongsToMany(Supplement, {through: 'StackSupplement'});
+Supplement.belongsToMany(Stack, {through: 'StackSupplement', onDelete: 'cascade'});
+Stack.belongsToMany(Supplement, {through: 'StackSupplement', onDelete: 'cascade'});
 
 // Uncomment following line when you want to wipe DB
 // db.sync({force: true});
