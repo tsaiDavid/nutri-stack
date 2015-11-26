@@ -13,6 +13,34 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 /***** GET *****/
 
+// Get a user (or many users') details
+app.get('/api/users/', function(req, res) {
+  // if a username is provided as query, return users information
+  if (req.query.username) {
+    return db.User
+      .findOne({
+        where: {username: req.query.username},
+      })
+      .then(function(user) {
+        // an object is returned
+        res.json(user);
+      });
+  } else {
+    // otherwise, return all user
+    return db.User
+      .findAll({})
+      .then(function(users) {
+        return Sequelize.Promise.map(users, function(user) {
+          return user.dataValues;
+        });
+      })
+      .then(function(usersArray) {
+        // an array of objects returned
+        res.json(usersArray);
+      });
+  }
+});
+
 // Get all stacks created by a user
 app.get('/api/users/:user_id/stacks', function(req, res) {
 
@@ -108,7 +136,7 @@ app.delete('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
     })
     .then(function(supplements) {
       // after getting the supplements, we iterate and delete each
-      _.each(supplements, function(supplement) {
+      Sequelize.Promise.each(supplements, function(supplement) {
         supplement.destroy();
       });
     })
