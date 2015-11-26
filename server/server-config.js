@@ -81,6 +81,15 @@ app.get('/api/supplements/:title', function(req, res) {
 });
 
 /***** DELETE *****/
+app.delete('/api/:stack/:supp', function(req, res) {
+  console.log(req.params);
+
+  // return db.Supplement
+  //   .findOne({
+  //     where: {id: req.body.id}
+  //   })
+});
+
 app.delete('/api/stack/:title', function(req, res) {
   return db.Stack
     .findOne({

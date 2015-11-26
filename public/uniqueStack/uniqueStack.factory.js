@@ -12,6 +12,7 @@
       getStackDetails: getStackDetails,
       getSupplements: getSupplements,
       addSupplement: addSupplement,
+      deleteSupplement: deleteSupplement,
     };
 
     return services;
@@ -51,6 +52,13 @@
         method: 'POST',
         url: 'api/stack/' + stackTitle,
         data: supplement,
+      });
+    }
+
+    function deleteSupplement(supplementId, stackTitle) {
+      return $http({
+        method: 'DELETE',
+        url: 'api/' + stackTitle, supplementId,
       });
     }
   }

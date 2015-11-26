@@ -21,7 +21,7 @@
                 <span id="supp-name">Supplement Name: <strong>{{n.name}}</strong></span>
                 <span id="supp-dosage">Dosage: <strong>{{n.dosage}}</strong></span>
                 <span id="supp-qty">Quantity: <strong>{{n.qty}}</strong></span>
-                <span id="supp-delete"><i class="fa fa-times"></i></span>
+                <span id="supp-delete" ng-click="vm.deleteSupplement(n.id)"><i class="fa fa-times"></i></span>
               </div>
             </li>
           </ul>

@@ -46,6 +46,10 @@
       });
     };
 
+    self.deleteSupplement = function(x) {
+      console.log(x);
+    };
+
     self.initialize();
   }
 

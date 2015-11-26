@@ -4,6 +4,9 @@
   angular.module('app')
   .config(config);
 
+  // upon document load, enable mobile sidenav; setting to close on click
+  $('.button-collapse').sideNav({closeOnClick: true});
+
   config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
   function config($stateProvider, $urlRouterProvider) {

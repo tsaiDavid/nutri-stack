@@ -14,12 +14,18 @@
       <!-- navigation -->
       <nav>
         <div class="nav-wrapper blue-grey darken-2">
-          <a href="#" class="brand-logo center">NutriStack</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <a href="#!" class="brand-logo center">NutriStack</a>
+          <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-bars"></i></a>
+          <ul class="right hide-on-med-and-down">
             <li><a ui-sref="home">Home</a></li>
             <li><a ui-sref="add">Add Stack</a></li>
             <li><a ui-sref="stacks">Your Stacks</a></li>
           </ul>
+          <ul class="side-nav" id="mobile-nav">
+            <li><a ui-sref="home">Home</a></li>
+            <li><a ui-sref="add">Add Stack</a></li>
+            <li><a ui-sref="stacks">Your Stacks</a></li>
+         </ul>
         </div>
       </nav>
     </header>

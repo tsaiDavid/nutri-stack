@@ -8,6 +8,10 @@ main {
   flex: 1 0 auto;
 }
 
+a.button-collapse {
+  margin-left: 15px;
+}
+
 .supp-stack #supp-name {
   margin-right: 20px;
 }
