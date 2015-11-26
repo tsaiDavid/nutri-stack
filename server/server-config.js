@@ -3,6 +3,7 @@ var db = require('./db');
 var path = require('path');
 var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
+var _ = require('lodash');
 
 var app = express();
 
@@ -12,19 +13,19 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 /***** GET *****/
 
-// Client will receive an array of stack titles
-app.get('/api/stacks/:user', function(req, res) {
+// Get all stacks created by a user
+app.get('/api/users/:user_id/stacks', function(req, res) {
 
   return db.User
     .findOne({
-      where: {username: req.params.user},
+      where: {id: req.params.user_id},
     })
     .then(function(user) {
       if (!user) {
-        return res.sendStatus(400).end();
+        return res.sendStatus(404).end();
       } else {
         return db.Stack.findAll({
-          where: {UserId: user.get('id')},
+          where: {UserId: req.params.user_id},
         });
       }
     })
@@ -43,12 +44,15 @@ app.get('/api/stacks/:user', function(req, res) {
 
 });
 
-// Client will receive stack details, pulled from db
-app.get('/api/stack/:title', function(req, res) {
+// Get a user's specific/one stack
+app.get('/api/users/:user_id/stacks/:title', function(req, res) {
 
   return db.Stack
     .findOne({
-      where: {title: req.params.title},
+      where: {
+        UserId: req.params.user_id,
+        title: req.params.title,
+      },
     })
     .then(function(stack) {
       if (!stack) {
@@ -61,8 +65,8 @@ app.get('/api/stack/:title', function(req, res) {
 
 });
 
-// Send client supplements contained in the particular stack (title)
-app.get('/api/supplements/:title', function(req, res) {
+// Get supplements in a user's specific stack
+app.get('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
 
   return db.Stack
     .findOne({
@@ -81,13 +85,37 @@ app.get('/api/supplements/:title', function(req, res) {
 });
 
 /***** DELETE *****/
-app.delete('/api/:stack/:supp', function(req, res) {
-  console.log(req.params);
 
-  // return db.Supplement
-  //   .findOne({
-  //     where: {id: req.body.id}
-  //   })
+// Delete supplements in a user's specific stack
+app.delete('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
+  // if no specific supp is specified through query, then delete all
+  console.log('No specific supplement was specified - deleting all.');
+  return db.Stack
+    .findOne({
+      where: {
+        UserId: req.params.user_id,
+        title: req.params.title,
+      },
+    })
+    .then(function(stack) {
+      if (_.size(req.query) === 0) {
+        return stack.getSupplements();
+      } else if (_.size(req.query) === 1) {
+        return stack.getSupplements({
+          where: {id: req.query.id},
+        });
+      }
+    })
+    .then(function(supplements) {
+      // after getting the supplements, we iterate and delete each
+      _.each(supplements, function(supplement) {
+        supplement.destroy();
+      });
+    })
+    .then(function() {
+      // Send a "No Content" message
+      res.sendStatus(204).end();
+    });
 });
 
 app.delete('/api/stack/:title', function(req, res) {
