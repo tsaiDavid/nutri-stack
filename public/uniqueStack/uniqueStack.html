@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col s12">
       <div class="card-panel">
-        <h6>Viewing Stack:</h6>
-        <h4>{{vm.title}}</h4>
+        <span>Stack Title:</span>
+        <span><strong>{{vm.title}}</strong></span>
           <br>
-        <!-- <h6>Created By:</h6> -->
-        <!-- TODO: find efficient way to pull stack's creator's username -->
-        <!-- <h4>{{vm.createdBy}}</h4> -->
-          <!-- <br> -->
-        <h6>Supplements In This Stack:</h6>
+        <span>Created By:</span>
+        <span><strong>{{vm.user.username}}</strong></span>
+          <br>
+          <br>
+        <span>Supplements In This Stack:</span>
           <br>
         <div class="collection">
           <!-- within this collection card repeat for each item retrieved from pg db -->

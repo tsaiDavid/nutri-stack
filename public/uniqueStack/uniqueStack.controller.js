@@ -18,18 +18,17 @@
     self.initialize = function() {
       self.getStackTitle();
 
-      uniqueStackFactory.getStackDetails(self.user.id)
-      .then(function(stack) {
-        self.stack = stack;
-      })
-      .then(function() {
-        self.getSupplements();
-      });
-
       uniqueStackFactory.getUser()
       .then(function(user) {
         self.user = user;
+        self.getSupplements(self.user.id);
       });
+
+      uniqueStackFactory.getStackDetails(self.user.id)
+      .then(function(stack) {
+        self.stack = stack;
+      });
+
     };
 
     self.getStackTitle = function() {
