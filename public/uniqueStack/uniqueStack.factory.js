@@ -9,6 +9,7 @@
   function uniqueStackFactory($http, $window, $location, $stateParams) {
     var services = {
       getTitle: getTitle,
+      getUser: getUser,
       getStackDetails: getStackDetails,
       getSupplements: getSupplements,
       addSupplement: addSupplement,
@@ -22,24 +23,36 @@
       return $stateParams.title;
     }
 
-    // retrieve stack details from db through our API endpoint
-    function getStackDetails() {
+    // Given a username, return the user's id
+    function getUser() {
       return $http({
         method: 'GET',
-        url: 'api/users/' + 1 + '/stacks/' + $stateParams.title,
+        url: 'api/users?username=' + $stateParams.username,
+      })
+      .then(function(user) {
+        // after getting user details, return it to controller
+        return user.data;
+      });
+    }
+
+    // retrieve stack details from db through our API endpoint
+    function getStackDetails(user_id) {
+      return $http({
+        method: 'GET',
+        url: 'api/users/' + user_id + '/stacks/' + $stateParams.title,
       })
       .then(function(stack) {
-        console.log('*** stack data', stack.data);
 
         // return only the response's data property/object
         return stack.data;
       });
     }
 
-    function getSupplements(stackTitle) {
+    function getSupplements(user_id) {
+      // based on username, grab the ID
       return $http({
         method: 'GET',
-        url: 'api/users/' + 1 + '/stacks/' + stack_title + '/supplements',
+        url: 'api/users/' + user_id + '/stacks/' + $stateParams.title + '/supplements',
       })
       .then(function(supps) {
         return supps;
@@ -47,27 +60,26 @@
     }
 
     // insert supplement into the pg database
-    function addSupplement(stack_title, supplement) {
+    function addSupplement(user_id, supplement) {
       return $http({
         method: 'POST',
-        url: 'api/users/' + 1 + '/stacks/' + stack_title,
+        url: 'api/users/' + user_id + '/stacks/' + $stateParams.title,
         data: supplement,
       });
     }
 
-    function deleteSupplement(stack_title, supplement_id) {
+    function deleteSupplement(user_id, supplement_id) {
       var supplementQuery = '';
       if (supplement_id !== undefined) {
         supplementQuery = '?=' + supplement_id;
       }
 
-      var stackDetails = getStackDetails();
-
-      console.log(stackDetails);
-
       return $http({
         method: 'DELETE',
-        url: '/api/users/' + 1 + '/stacks/' + stack_title + '/supplements' + supplementQuery,
+        url: '/api/users/' + user_id + '/stacks/' + $stateParams.title + '/supplements' + supplementQuery,
+      })
+      .then(function() {
+        $state.go($state.current, {}, {reload: true});
       });
     }
   }

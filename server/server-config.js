@@ -150,6 +150,8 @@ app.delete('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
       }
     })
     .then(function(supplements) {
+      console.log('Here are the supplements: ', supplements);
+
       // after getting the supplements, we iterate and delete each
       Sequelize.Promise.each(supplements, function(supplement) {
         supplement.destroy();

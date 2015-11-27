@@ -12,16 +12,23 @@
     // title is the name of the stack
     self.title;
     self.stack;
+    self.user = {};
     self.supplement = {};
 
     self.initialize = function() {
       self.getStackTitle();
-      uniqueStackFactory.getStackDetails()
+
+      uniqueStackFactory.getStackDetails(self.user.id)
       .then(function(stack) {
         self.stack = stack;
       })
       .then(function() {
         self.getSupplements();
+      });
+
+      uniqueStackFactory.getUser()
+      .then(function(user) {
+        self.user = user;
       });
     };
 
@@ -29,7 +36,7 @@
       self.title = uniqueStackFactory.getTitle();
     };
 
-    self.getSupplements = function() {
+    self.getSupplements = function(user_id, stack_title) {
       uniqueStackFactory.getSupplements(self.title)
       .then(function(supps) {
         self.supplements = supps.data;
@@ -37,8 +44,8 @@
     };
 
     // submit will send the form data to factory function for server use
-    self.submit = function() {
-      uniqueStackFactory.addSupplement(self.supplement, self.title)
+    self.addSupplement = function() {
+      uniqueStackFactory.addSupplement(self.user.id, self.supplement)
       .then(function() {
         // after submission, clear out object
         self.supplement = {};
@@ -46,8 +53,8 @@
       });
     };
 
-    self.deleteSupplement = function(x) {
-      console.log(x);
+    self.deleteSupplement = function(supplement_id) {
+      uniqueStackFactory.deleteSupplement(self.user.id, supplement_id);
     };
 
     self.initialize();
