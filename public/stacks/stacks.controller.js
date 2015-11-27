@@ -42,7 +42,6 @@
     // Move user into the unique stack view based on selected title
     // FIXME: No longer able to load unique stack view
     self.goToStack = function(stackTitle) {
-      console.log('username: ', self.user.username);
       $state.go('uniqueStack', {
         username: self.user.username,
         title: stackTitle,

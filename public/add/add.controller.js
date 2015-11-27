@@ -5,9 +5,9 @@
   .controller('AddCtrl', AddCtrl);
 
   // controller takes its Factory injection here to gain fn's
-  AddCtrl.$inject = ['addFactory'];
+  AddCtrl.$inject = ['addFactory', '$state'];
 
-  function AddCtrl(addFactory) {
+  function AddCtrl(addFactory, $state) {
     var self = this;
 
     // objects to store user and stack input data
@@ -18,7 +18,13 @@
       addFactory.createUser(self.input)
       .then(function() {
         // using that id number, a new stack will be created
-        addFactory.createStack(self.input);
+        return addFactory.createStack(self.input);
+      })
+      .then(function() {
+        $state.go('uniqueStack', {
+          username: self.input.username,
+          title: self.input.stacktitle,
+        });
       });
     };
 

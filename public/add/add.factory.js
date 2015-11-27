@@ -4,9 +4,9 @@
   angular.module('app')
   .factory('addFactory', addFactory);
 
-  addFactory.$inject = ['$http'];
+  addFactory.$inject = ['$http', '$state'];
 
-  function addFactory($http) {
+  function addFactory($http, $state) {
     var services = {
       getUser: getUser,
       createUser, createUser,

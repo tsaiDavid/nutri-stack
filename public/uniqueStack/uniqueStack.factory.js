@@ -4,9 +4,9 @@
   angular.module('app')
   .factory('uniqueStackFactory', uniqueStackFactory);
 
-  uniqueStackFactory.$inject = ['$http', '$window', '$location', '$stateParams'];
+  uniqueStackFactory.$inject = ['$http', '$window', '$location', '$state', '$stateParams'];
 
-  function uniqueStackFactory($http, $window, $location, $stateParams) {
+  function uniqueStackFactory($http, $window, $location, $state, $stateParams) {
     var services = {
       getTitle: getTitle,
       getUser: getUser,
