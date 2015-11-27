@@ -37,6 +37,9 @@ app.get('/api/users/', function(req, res) {
       .then(function(usersArray) {
         // an array of objects returned
         res.json(usersArray);
+      })
+      .catch(function(err) {
+        console.err(err);
       });
   }
 });
@@ -165,7 +168,19 @@ app.delete('/api/stack/:title', function(req, res) {
 
 /***** POST *****/
 
-app.post('/api/stacks', function(req, res) {
+// Create a new user
+app.post('/api/users', function(req, res) {
+  return db.User
+    .findOrCreate({
+      where: {username: req.body.username},
+    })
+    .spread(function(user) {
+      res.sendStatus(201).end();
+    });
+});
+
+// Create a new unique stack for a particular user
+app.post('/api/users/:user_id/stacks', function(req, res) {
   return db.User
 
     // prevents duplicate user creation
@@ -180,16 +195,18 @@ app.post('/api/stacks', function(req, res) {
         UserId: user.get('id'),
       });
     })
+    .then(function() {
+      // send 201 - successful creation
+      res.sendStatus(201).end();
+    })
     .catch(function(err) {
       console.err(err);
     });
 
-  // send 201 - successful creation
-  res.status(201).json();
 });
 
-// Modify the stack's attributes (add supplements)
-app.post('/api/stack/:title', function(req, res) {
+// Add supplements to a user's stack
+app.post('/api/users/:user_id/stacks/:title', function(req, res) {
   return db.Stack
     .findOrCreate({
       where: {title: req.params.title},

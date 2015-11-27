@@ -14,10 +14,12 @@
     self.input = {};
 
     self.submit = function() {
-      addFactory.insertToDB(self.input)
-        .then(function() {
-          // TODO: after inserting stack, take user to the stack page
-        });
+      // a new user entry will be created if it cannot be found
+      addFactory.createUser(self.input)
+      .then(function() {
+        // using that id number, a new stack will be created
+        addFactory.createStack(self.input);
+      });
     };
 
   }

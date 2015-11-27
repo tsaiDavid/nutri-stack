@@ -19,8 +19,6 @@ var User = db.define('User', {
   username: {
     type: Sequelize.STRING,
   },
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
 });
 
 var Stack = db.define('Stack', {
