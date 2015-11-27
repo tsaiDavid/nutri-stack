@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 // Get a user (or many users') details
 app.get('/api/users/', function(req, res) {
-  // if a username is provided as query, return users information
+  // if a username is provided as query, return user's info
   if (req.query.username) {
     return db.User
       .findOne({
@@ -25,8 +25,20 @@ app.get('/api/users/', function(req, res) {
         // an object is returned
         res.json(user);
       });
+
+  // if a user id is provided, return user's info
+  } else if (req.query.user_id) {
+    return db.User
+      .findOne({
+        where: {id: req.query.user_id},
+      })
+      .then(function(user) {
+        // an object is returned
+        res.json(user);
+      });
+
+  // otherwise, return all user
   } else {
-    // otherwise, return all user
     return db.User
       .findAll({})
       .then(function(users) {

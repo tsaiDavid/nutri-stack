@@ -26,10 +26,10 @@
     function getStackDetails() {
       return $http({
         method: 'GET',
-        url: 'api/stack/' + $stateParams.title,
+        url: 'api/users/' + 1 + '/stacks/' + $stateParams.title,
       })
       .then(function(stack) {
-        console.log(stack.data);
+        console.log('*** stack data', stack.data);
 
         // return only the response's data property/object
         return stack.data;
@@ -39,7 +39,7 @@
     function getSupplements(stackTitle) {
       return $http({
         method: 'GET',
-        url: 'api/supplements/' + stackTitle,
+        url: 'api/users/' + 1 + '/stacks/' + stack_title + '/supplements',
       })
       .then(function(supps) {
         return supps;
@@ -47,18 +47,27 @@
     }
 
     // insert supplement into the pg database
-    function addSupplement(supplement, stackTitle) {
+    function addSupplement(stack_title, supplement) {
       return $http({
         method: 'POST',
-        url: 'api/stack/' + stackTitle,
+        url: 'api/users/' + 1 + '/stacks/' + stack_title,
         data: supplement,
       });
     }
 
-    function deleteSupplement(supplementId, stackTitle) {
+    function deleteSupplement(stack_title, supplement_id) {
+      var supplementQuery = '';
+      if (supplement_id !== undefined) {
+        supplementQuery = '?=' + supplement_id;
+      }
+
+      var stackDetails = getStackDetails();
+
+      console.log(stackDetails);
+
       return $http({
         method: 'DELETE',
-        url: 'api/' + stackTitle, supplementId,
+        url: '/api/users/' + 1 + '/stacks/' + stack_title + '/supplements' + supplementQuery,
       });
     }
   }

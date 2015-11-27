@@ -19,7 +19,7 @@
         controller: 'HomeCtrl',
       })
       .state('add', {
-        url: '/add',
+        url: '/stacks/add',
         templateUrl: 'add/add.html',
         controller: 'AddCtrl',
       })
@@ -29,11 +29,18 @@
         controller: 'StackCtrl',
       })
       .state('stacks.list', {
+        url: '/:username',
+        params: {
+          username: null,
+        },
         templateUrl: 'stacks/stacks.stackslist.html',
         controller: 'StackCtrl',
       })
       .state('uniqueStack', {
-        url: '/stacks/:title',
+        url: '/stacks/:username/:title',
+        params: {
+          username: null,
+        },
         templateUrl: 'uniqueStack/uniqueStack.html',
         controller: 'StackCtrl',
       });
