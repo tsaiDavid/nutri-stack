@@ -11,7 +11,7 @@
               <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
             </div>
               <br>
-            <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Get Stacks</button>
+            <button class="btn waves-effect waves-light blue-grey lighten-2" ng-disabled="!vm.input.username" type="submit" name="action">Get Stacks</button>
           </form>
         </div>
       </div>

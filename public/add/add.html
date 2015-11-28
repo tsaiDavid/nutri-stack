@@ -17,7 +17,7 @@
                 <input type="text" ng-model="vm.input.stacktitle" placeholder="Stack Title">
               </div>
               <br>
-              <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Submit</button>
+              <button class="btn waves-effect waves-light blue-grey lighten-2" ng-disabled="(!vm.input.username || !vm.input.stacktitle)" type="submit" name="action">Submit</button>
             </form>
 
           </span>
