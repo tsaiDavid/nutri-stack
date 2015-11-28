@@ -17,26 +17,31 @@
         url: '/home',
         templateUrl: 'home/home.html',
         controller: 'HomeCtrl',
+        controllerAs: 'vm',
       })
       .state('add', {
         url: '/stacks/add',
         templateUrl: 'add/add.html',
         controller: 'AddCtrl',
+        controllerAs: 'vm',
       })
       .state('stacks', {
         url: '/stacks',
         templateUrl: 'stacks/stacks.html',
         controller: 'StackCtrl',
+        controllerAs: 'vm',
       })
       .state('stacks.list', {
         url: '/:username',
         templateUrl: 'stacks/stacks.stackslist.html',
         controller: 'StackCtrl',
+        controllerAs: 'vm',
       })
       .state('uniqueStack', {
         url: '/stacks/:username/:title',
         templateUrl: 'uniqueStack/uniqueStack.html',
         controller: 'UniqueStackCtrl',
+        controllerAs: 'vm',
       });
   }
 })();
