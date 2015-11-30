@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>server.js</title>
+  <title>app.module.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -20,13 +20,13 @@
             <div id="jump_page">
               
                 
-                <a class="source" href="server-config.html">
-                  server-config.js
+                <a class="source" href="app.module.html">
+                  app.module.js
                 </a>
               
                 
-                <a class="source" href="server.html">
-                  server.js
+                <a class="source" href="app.routes.html">
+                  app.routes.js
                 </a>
               
             </div>
@@ -38,7 +38,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>server.js</h1>
+                  <h1>app.module.js</h1>
               </div>
           </li>
         
@@ -50,16 +50,25 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>Create the angular module named <strong>app</strong> and inject the ui-router dependency</p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./server-config.js'</span>);
+            <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'app'</span>, [<span class="hljs-string">'ui.router'</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>For more information on the style guide followed for this Angular project, visit:</p>
+<p><a href="https://github.com/johnpapa/angular-styleguide">Angular Style Guide by John Papa</a></p>
 
-<span class="hljs-keyword">var</span> port = process.env.PORT || <span class="hljs-number">3000</span>;
-
-app.listen(port);
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server now listening on port '</span> + port);</pre></div></div>
+            </div>
             
         </li>
         
