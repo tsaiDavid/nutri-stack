@@ -50,7 +50,10 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>This factory works in conjunction with the stacks controller to provide
+the methods necessary for the controller to retrieve stack data from the
+server and the postgreSQL database.</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -59,9 +62,9 @@
   angular.module(<span class="hljs-string">'app'</span>)
   .factory(<span class="hljs-string">'stackFactory'</span>, stackFactory);
 
-  stackFactory.$inject = [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$window'</span>];
+  stackFactory.$inject = [<span class="hljs-string">'$http'</span>];
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackFactory</span>(<span class="hljs-params">$http, $location, $window</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackFactory</span>(<span class="hljs-params">$http</span>) </span>{
     <span class="hljs-keyword">var</span> services = {
       getUser: getUser,
       getUserStack: getUserStack,
@@ -82,12 +85,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params">username</span>) </span>{
-      <span class="hljs-keyword">return</span> $http({
-        method: <span class="hljs-string">'GET'</span>,
-        url: <span class="hljs-string">'api/users?username='</span> + username,
-      })
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params">username</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -98,13 +96,15 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>after getting user details, return it to controller</p>
+              <p>Perform a GET request to the server, passing in the username query string</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> user.data;
-      });
-    }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> $http({
+        method: <span class="hljs-string">'GET'</span>,
+        url: <span class="hljs-string">'api/users?username='</span> + username,
+      })
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -115,12 +115,43 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
+              <p>After getting user data, return it to controller</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> user.data;
+      });
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
               <p>Get all stacks based on a user’s id</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserStack</span>(<span class="hljs-params">user_id</span>) </span>{
-      <span class="hljs-keyword">return</span> $http({
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserStack</span>(<span class="hljs-params">user_id</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Function takes in <strong>user_id</strong> as a URL param</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> $http({
         method: <span class="hljs-string">'GET'</span>,
         url: <span class="hljs-string">'api/users/'</span> + user_id + <span class="hljs-string">'/stacks'</span>,
       })

@@ -73,14 +73,57 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>title is the name of the stack</p>
+              <p><code>self.title</code> serves to store the title of the current stack</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    self.title;
-    self.stack;
-    self.user = {};
-    self.supplement = {};
+            <div class="content"><div class='highlight'><pre>    self.title;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><code>self.stack</code> is a placeholder prop for the stack data object returned by the
+factory method, ‘getStackDetails’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.stack;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p><code>self.user</code> is an object that serves to store the returned user data after retrieval</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.user = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><code>self.supplement</code> is an object that serves to store the supplements retrieved</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.supplement = {};
 
     self.initialize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
       self.getStackTitle();
@@ -96,13 +139,40 @@
         self.stack = stack;
       });
 
-    };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>This method retrieves the unique stack’s title</p>
 
-    self.getStackTitle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.getStackTitle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
       self.title = uniqueStackFactory.getTitle();
-    };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>This method takes the <strong>user_id</strong> and <strong>stack_title</strong> params to use
+its factory method to retrieve supplements then assigns to controller</p>
 
-    self.getSupplements = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user_id, stack_title</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.getSupplements = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user_id, stack_title</span>) </span>{
       uniqueStackFactory.getSupplements(self.title)
       .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">supps</span>) </span>{
         self.supplements = supps.data;
@@ -112,13 +182,13 @@
         </li>
         
         
-        <li id="section-3">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>submit will send the form data to factory function for server use</p>
+              <p>This method will send the form data to factory function for server use</p>
 
             </div>
             
@@ -129,11 +199,11 @@
         </li>
         
         
-        <li id="section-4">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>after submission, clear out object</p>
 
@@ -142,13 +212,39 @@
             <div class="content"><div class='highlight'><pre>        self.supplement = {};
         self.initialize();
       });
-    };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>This method will delete the supplement, given a <strong>supplement_id</strong> param</p>
 
-    self.deleteSupplement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">supplement_id</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.deleteSupplement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">supplement_id</span>) </span>{
       uniqueStackFactory.deleteSupplement(self.user.id, supplement_id);
-    };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Call made to initialize for the functions to be initialized upon controller instantiation</p>
 
-    self.initialize();
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.initialize();
   }
 
 })();</pre></div></div>

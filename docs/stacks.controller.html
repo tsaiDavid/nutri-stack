@@ -62,10 +62,7 @@
   StackCtrl.$inject = [<span class="hljs-string">'stackFactory'</span>, <span class="hljs-string">'$state'</span>, <span class="hljs-string">'$stateParams'</span>];
 
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StackCtrl</span>(<span class="hljs-params">stackFactory, $state, $stateParams</span>) </span>{
-    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-    self.input = {};
-    self.user = {};
-    self.stacks;</pre></div></div>
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -76,17 +73,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Whenever controller is initalized, load appropriate user stacks
-FIXME: Right now, the stacks are only loading when refreshed</p>
+              <p><code>self.input</code> is an object that stores user input</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    self.initialize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">if</span> ($stateParams.username) {
-        self.input.username = $stateParams.username;
-        self.submit();
-      }
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    self.input = {};</pre></div></div>
             
         </li>
         
@@ -97,26 +88,11 @@ FIXME: Right now, the stacks are only loading when refreshed</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>After user submits search for stacks by username, we switch to a nested state view
-Since the controller is loses its data upon reinstantiation, it defaults to the ‘stacks’ view</p>
+              <p><code>self.user</code> is an object that stores the returned user data after submit is called</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    self.submit = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      stackFactory.getUser(self.input.username)
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
-        self.user.id = user.id;
-        self.user.username = user.username;
-      })
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">return</span> stackFactory.getUserStack(self.user.id);
-      })
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">array</span>) </span>{
-        self.stacks = array;
-        self.input.username = <span class="hljs-string">''</span>;
-        $state.go(<span class="hljs-string">'stacks.list'</span>, {username: self.user.username});
-      });
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    self.user = {};</pre></div></div>
             
         </li>
         
@@ -127,13 +103,206 @@ Since the controller is loses its data upon reinstantiation, it defaults to the 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Move user into the unique stack view based on selected title
-FIXME: No longer able to load unique stack view</p>
+              <p><code>self.stacks</code> is placeholder for the array of stacks returned by the ‘getUserStack’ call</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    self.goToStack = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stackTitle</span>) </span>{
-      $state.go(<span class="hljs-string">'uniqueStack'</span>, {
+            <div class="content"><div class='highlight'><pre>    self.stacks;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Whenever controller is initalized, load appropriate user stacks</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.initialize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Looking at the current state’s params, if there’s a username,
+assign the user input field and submit, this is used if a user reloads the page
+at the same route</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> ($stateParams.username) {
+        self.input.username = $stateParams.username;
+        self.submit();
+      }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>After user submits search for stacks by username, we switch to a nested state view
+Since the controller is loses its data upon reinstantiation, it defaults to the ‘stacks’ view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.submit = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Retrieve user data using factory’s method</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      stackFactory.getUser(self.input.username)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>The returned object can be stored onto the controller’s <code>self.user</code> object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        self.user.id = user.id;
+        self.user.username = user.username;
+      })
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Using the retrieved user id, we retrieve all associated stacks</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> stackFactory.getUserStack(self.user.id);
+      })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Take the array and assign to stacks</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">array</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Store returned array for ng-repeat by stacks.stacklist.html</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        self.stacks = array;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Clear out the input field in the search field</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        self.input.username = <span class="hljs-string">''</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Use <code>$state</code> to change state to nested stacks.list view, using username param
+for UI routing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        $state.go(<span class="hljs-string">'stacks.list'</span>, {username: self.user.username});
+      });
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Function moves user into the unique stack view based on selected title</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.goToStack = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stackTitle</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Uses <code>$state</code> to change state, passing in params to be used for UI routing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      $state.go(<span class="hljs-string">'uniqueStack'</span>, {
         username: self.user.username,
         title: stackTitle,
       });

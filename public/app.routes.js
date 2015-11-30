@@ -46,6 +46,14 @@
         controllerAs: 'vm',
       })
 
+      // This subview is displayed when the user isn't found
+      .state('notfound', {
+        url: '/notfound',
+        templateUrl: 'stacks/stacks.notfound.html',
+        controller: 'StackCtrl',
+        controllerAs: 'vm',
+      })
+
       // to get the unique stack, we base it off the **username** route and add
       // the unique **title** that is desired for retrieval
       .state('uniqueStack', {

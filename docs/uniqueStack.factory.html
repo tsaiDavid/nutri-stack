@@ -82,7 +82,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>returns title of current stack to view model</p>
+              <p>Returns title of current stack to view model</p>
 
             </div>
             
@@ -136,16 +136,13 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>retrieve stack details from db through our API endpoint</p>
+              <p>Retrieve stack details from db through our API endpoint</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStackDetails</span>(<span class="hljs-params">user_id</span>) </span>{
       <span class="hljs-keyword">return</span> $http({
-        method: <span class="hljs-string">'GET'</span>,
-        url: <span class="hljs-string">'api/users/'</span> + user_id + <span class="hljs-string">'/stacks/'</span> + $stateParams.title,
-      })
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stack</span>) </span>{</pre></div></div>
+        method: <span class="hljs-string">'GET'</span>,</pre></div></div>
             
         </li>
         
@@ -156,7 +153,25 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>return only the response’s data property/object</p>
+              <p>Notice the usage of the <strong>user_id</strong> and <strong>title</strong> params
+The ‘title’ param is grabbed from the current UI route</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        url: <span class="hljs-string">'api/users/'</span> + user_id + <span class="hljs-string">'/stacks/'</span> + $stateParams.title,
+      })
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stack</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Return only the response’s data property/object</p>
 
             </div>
             
@@ -169,13 +184,13 @@
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>based on username, grab the ID</p>
+              <p>Based on username, grab the ID</p>
 
             </div>
             
@@ -191,13 +206,13 @@
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>insert supplement into the pg database</p>
+              <p>Insert supplement into the pg database</p>
 
             </div>
             

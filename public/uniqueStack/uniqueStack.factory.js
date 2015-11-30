@@ -18,7 +18,7 @@
 
     return services;
 
-    // returns title of current stack to view model
+    // Returns title of current stack to view model
     function getTitle() {
       return $stateParams.title;
     }
@@ -35,21 +35,24 @@
       });
     }
 
-    // retrieve stack details from db through our API endpoint
+    // Retrieve stack details from db through our API endpoint
     function getStackDetails(user_id) {
       return $http({
         method: 'GET',
+
+        // Notice the usage of the **user_id** and **title** params
+        // The 'title' param is grabbed from the current UI route
         url: 'api/users/' + user_id + '/stacks/' + $stateParams.title,
       })
       .then(function(stack) {
 
-        // return only the response's data property/object
+        // Return only the response's data property/object
         return stack.data;
       });
     }
 
     function getSupplements(user_id) {
-      // based on username, grab the ID
+      // Based on username, grab the ID
       return $http({
         method: 'GET',
         url: 'api/users/' + user_id + '/stacks/' + $stateParams.title + '/supplements',
@@ -59,7 +62,7 @@
       });
     }
 
-    // insert supplement into the pg database
+    // Insert supplement into the pg database
     function addSupplement(user_id, supplement) {
       return $http({
         method: 'POST',
