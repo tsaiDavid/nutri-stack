@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: server-config.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: server-config.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module server-config
+ */
+
 var express = require('express');
 var db = require('./db');
 var path = require('path');
@@ -11,32 +43,37 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '/../public')));
 
-// ** GET Methods **
-// ____
+/***** GET *****/
 
-// ** /api/users ** [GET]
+/**
+ * Description for teh get users
+ * @param  {String} '/api/users/' Get the users
+ * @return {void} asdf
+ */
 app.get('/api/users/', function(req, res) {
-  // If a ** username ** query string is provided, return user data as JSON
+  // if a username is provided as query, return user's info
   if (req.query.username) {
     return db.User
       .findOne({
         where: {username: req.query.username},
       })
       .then(function(user) {
+        // an object is returned
         res.json(user);
       });
 
-  // If a ** user_id ** query string is provided, return user data as JSON
+  // if a user id is provided, return user's info
   } else if (req.query.user_id) {
     return db.User
       .findOne({
         where: {id: req.query.user_id},
       })
       .then(function(user) {
+        // an object is returned
         res.json(user);
       });
 
-  // Basic GET requests will return all users as an array
+  // otherwise, return all user
   } else {
     return db.User
       .findAll({})
@@ -46,6 +83,7 @@ app.get('/api/users/', function(req, res) {
         });
       })
       .then(function(usersArray) {
+        // an array of objects returned
         res.json(usersArray);
       })
       .catch(function(err) {
@@ -54,19 +92,14 @@ app.get('/api/users/', function(req, res) {
   }
 });
 
-// ____
-
-// ** /api/users/:user_id/stacks ** [GET]
-//
-// Get all stacks associated with a specific user
+// Get all stacks created by a user
 app.get('/api/users/:user_id/stacks', function(req, res) {
-  // Use Sequelize to retrieve a user matching the **user_id** URL param
+
   return db.User
     .findOne({
       where: {id: req.params.user_id},
     })
     .then(function(user) {
-      // Error handling for user that isn't found
       if (!user) {
         return res.sendStatus(404).end();
       } else {
@@ -76,13 +109,11 @@ app.get('/api/users/:user_id/stacks', function(req, res) {
       }
     })
     .then(function(stacks) {
-      // Use Sequelize's built in promise library (bluebird)
+      // Using Sequelize's built in promise (bluebird)
       return Sequelize.Promise.map(stacks, function(stack) {
         return stack.get('title');
       });
     })
-
-    // Return an array of all the stacks' titles
     .then(function(titleArray) {
       res.json(titleArray);
     })
@@ -92,13 +123,9 @@ app.get('/api/users/:user_id/stacks', function(req, res) {
 
 });
 
-// ____
-
-// ** /api/users/:user_id/stacks/:title ** [GET]
-//
-// Get a single user's specific stack
+// Get a user's specific/one stack
 app.get('/api/users/:user_id/stacks/:title', function(req, res) {
-  // Retrieve stack that contains **user_id** and **title** URL param
+
   return db.Stack
     .findOne({
       where: {
@@ -107,9 +134,8 @@ app.get('/api/users/:user_id/stacks/:title', function(req, res) {
       },
     })
     .then(function(stack) {
-      // Error handling for stack not being found
       if (!stack) {
-        res.sendStatus(404).end();
+        res.sendStatus(400).end();
       } else {
         // after receiving the stack, you'll want to send to client
         res.json(stack.dataValues);
@@ -118,11 +144,7 @@ app.get('/api/users/:user_id/stacks/:title', function(req, res) {
 
 });
 
-// ____
-
-// ** /api/users/:user_id/stacks/:title/supplements ** [GET]
-//
-// Get all supplements in a specific user stack
+// Get supplements in a user's specific stack
 app.get('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
 
   return db.Stack
@@ -141,11 +163,61 @@ app.get('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
 
 });
 
-// ** POST Methods **
-// ____
+/***** DELETE *****/
 
-// ** /api/users ** [POST]
-//
+// Delete supplements in a user's specific stack
+app.delete('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
+  // if no specific supp is specified through query, then delete all
+  console.log('No specific supplement was specified - deleting all.');
+  return db.Stack
+    .findOne({
+      where: {
+        UserId: req.params.user_id,
+        title: req.params.title,
+      },
+    })
+    .then(function(stack) {
+      if (_.size(req.query) === 0) {
+        return stack.getSupplements();
+      } else if (_.size(req.query) === 1) {
+        return stack.getSupplements({
+          where: {id: req.query.id},
+        });
+      }
+    })
+    .then(function(supplements) {
+      console.log('Here are the supplements: ', supplements);
+
+      // after getting the supplements, we iterate and delete each
+      Sequelize.Promise.each(supplements, function(supplement) {
+        supplement.destroy();
+      });
+    })
+    .then(function() {
+      // Send a "No Content" message
+      res.sendStatus(204).end();
+    });
+});
+
+app.delete('/api/stack/:title', function(req, res) {
+  return db.Stack
+    .findOne({
+      where: {title: req.params.title},
+    })
+    .then(function(stack) {
+      stack.destroy();
+
+      // TODO: Send correct status code here
+      res.end;
+    })
+    .catch(function(err) {
+      console.err(err);
+    });
+
+});
+
+/***** POST *****/
+
 // Create a new user
 app.post('/api/users', function(req, res) {
   return db.User
@@ -157,20 +229,16 @@ app.post('/api/users', function(req, res) {
     });
 });
 
-// ____
-
-// ** /api/users/:user_id/stacks ** [POST]
-//
-// Create a new unique stack for a specific user
+// Create a new unique stack for a particular user
 app.post('/api/users/:user_id/stacks', function(req, res) {
   return db.User
 
-    // Prevent duplicate user creation, return user
+    // prevents duplicate user creation
     .findOrCreate({
       where: {username: req.body.username},
     })
 
-    // Use of 'spread' in place of 'then' for findOrCreate compatability
+    // use 'spread' in place of 'then' for findOrCreate compatability
     .spread(function(user) {
       return db.Stack.create({
         title: req.body.stacktitle,
@@ -178,7 +246,7 @@ app.post('/api/users/:user_id/stacks', function(req, res) {
       });
     })
     .then(function() {
-      // Send 201 - successful creation
+      // send 201 - successful creation
       res.sendStatus(201).end();
     })
     .catch(function(err) {
@@ -187,21 +255,13 @@ app.post('/api/users/:user_id/stacks', function(req, res) {
 
 });
 
-// ____
-
-// ** /api/users/:user_id/stacks/:title ** [POST]
-//
 // Add supplements to a user's stack
 app.post('/api/users/:user_id/stacks/:title', function(req, res) {
-  // Find stack matching the **title** URL param
   return db.Stack
     .findOrCreate({
       where: {title: req.params.title},
     })
-
-    // Using 'spread' method for compatability with Sequelize findOrCreate
     .spread(function(stack) {
-      // Create the supplement
       return db.Supplement
         .create({
           name: req.body.name,
@@ -209,11 +269,11 @@ app.post('/api/users/:user_id/stacks/:title', function(req, res) {
           dosage: req.body.dosage,
         })
 
-        // Then, associate the supplement to the stacks table
+        // TODO: Evaluate possible refactor
         .then(function(supplement) {
           supplement.addStacks([stack.get('id')]);
 
-          // Send 201 - successful creation
+          // send 201 - successful creation
           res.status(201).json();
         });
     })
@@ -224,66 +284,27 @@ app.post('/api/users/:user_id/stacks/:title', function(req, res) {
   res.end();
 });
 
-// ** DELETE Methods **
-// ____
-
-// ** /api/users/:user_id/stacks/:title/supplements ** [DELETE]
-//
-// Delete supplements in a user specific stack
-app.delete('/api/users/:user_id/stacks/:title/supplements', function(req, res) {
-  // Delete all supplements in stack if no specific one was specified
-  console.log('No specific supplement was specified - deleting all.');
-  return db.Stack
-
-    // Find the user stack based on **user_id** and **title** URL params
-    .findOne({
-      where: {
-        UserId: req.params.user_id,
-        title: req.params.title,
-      },
-    })
-    .then(function(stack) {
-      // If query object is 0, then return all supplements for deletion
-      if (_.size(req.query) === 0) {
-        return stack.getSupplements();
-
-      // Otherwise, get the supplement with the matching identifier
-      } else if (_.size(req.query) === 1) {
-        return stack.getSupplements({
-          where: {id: req.query.id},
-        });
-      }
-    })
-    .then(function(supplements) {
-      console.log('Here are the supplements: ', supplements);
-
-      // After getting the supplements, we iterate and delete each
-      Sequelize.Promise.each(supplements, function(supplement) {
-        supplement.destroy();
-      });
-    })
-    .then(function() {
-      // Send a "No Content" message
-      res.sendStatus(204).end();
-    });
-});
-
-// ** /api/stack/:title ** [DELETE]
-//
-// Delete supplements in a user specific stack
-app.delete('/api/stack/:title', function(req, res) {
-  return db.Stack
-    .findOne({
-      where: {title: req.params.title},
-    })
-    .then(function(stack) {
-      stack.destroy();
-      res.end;
-    })
-    .catch(function(err) {
-      console.err(err);
-    });
-
-});
-
 module.exports = app;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-server-config.html">server-config</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Nov 29 2015 14:03:21 GMT-0800 (PST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

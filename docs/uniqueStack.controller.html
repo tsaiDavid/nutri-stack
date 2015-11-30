@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>uniqueStack.controller.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="uniqueStack.controller.html">
+                  uniqueStack.controller.js
+                </a>
+              
+                
+                <a class="source" href="uniqueStack.factory.html">
+                  uniqueStack.factory.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>uniqueStack.controller.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-pi">  'use strict'</span>;
+
+  angular.module(<span class="hljs-string">'app'</span>)
+  .controller(<span class="hljs-string">'UniqueStackCtrl'</span>, UniqueStackCtrl);
+
+  UniqueStackCtrl.$inject = [<span class="hljs-string">'uniqueStackFactory'</span>];
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">UniqueStackCtrl</span>(<span class="hljs-params">uniqueStackFactory</span>) </span>{
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p><code>self.title</code> serves to store the title of the current stack</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.title;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><code>self.stack</code> is a placeholder prop for the stack data object returned by the
+factory method, ‘getStackDetails’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.stack;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p><code>self.user</code> is an object that serves to store the returned user data after retrieval</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.user = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><code>self.supplement</code> is an object that serves to store the supplements retrieved</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.supplement = {};
+
+    self.initialize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      self.getStackTitle();
+
+      uniqueStackFactory.getUser()
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
+        self.user = user;
+        self.getSupplements(self.user.id);
+      });
+
+      uniqueStackFactory.getStackDetails(self.user.id)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stack</span>) </span>{
+        self.stack = stack;
+      });
+
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>This method retrieves the unique stack’s title</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.getStackTitle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      self.title = uniqueStackFactory.getTitle();
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>This method takes the <strong>user_id</strong> and <strong>stack_title</strong> params to use
+its factory method to retrieve supplements then assigns to controller</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.getSupplements = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user_id, stack_title</span>) </span>{
+      uniqueStackFactory.getSupplements(self.title)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">supps</span>) </span>{
+        self.supplements = supps.data;
+      });
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>This method will send the form data to factory function for server use</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.addSupplement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      uniqueStackFactory.addSupplement(self.user.id, self.supplement)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>after submission, clear out object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        self.supplement = {};
+        self.initialize();
+      });
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>This method will delete the supplement, given a <strong>supplement_id</strong> param</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.deleteSupplement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">supplement_id</span>) </span>{
+      uniqueStackFactory.deleteSupplement(self.user.id, supplement_id);
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Call made to initialize for the functions to be initialized upon controller instantiation</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.initialize();
+  }
+
+})();</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

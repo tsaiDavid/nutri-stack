@@ -22,7 +22,10 @@ var User = db.define('User', {
 });
 
 var Stack = db.define('Stack', {
-  title: Sequelize.STRING,
+  title: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
 });
 
 var Supplement = db.define('Supplement', {
@@ -30,8 +33,6 @@ var Supplement = db.define('Supplement', {
   qty: Sequelize.INTEGER,
   dosage: Sequelize.INTEGER,
 });
-
-// TODO: Add other necessary relations, must have a one-to-many & many-to-many
 
 // 1:M relationship
 Stack.belongsTo(User);

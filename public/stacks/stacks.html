@@ -1,17 +1,17 @@
-<div id="stacks" ng-controller="StackCtrl as vm">
+<div id="stacks">
   <div class="row">
 
       <div class="col s12">
         <div class="card-panel">
           <h5>Search Stacks by User</h5>
-          
+
           <!-- form to add the supplement details -->
           <form ng-submit="vm.submit()">
             <div class="form-stacks">
               <input type="text" ng-model="vm.input.username" placeholder="Username"><br>
             </div>
               <br>
-            <button class="btn waves-effect waves-light blue-grey lighten-2" type="submit" name="action">Get Stacks</button>
+            <button class="btn waves-effect waves-light blue-grey lighten-2" ng-disabled="!vm.input.username" type="submit" name="action">Get Stacks</button>
           </form>
         </div>
       </div>
